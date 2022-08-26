@@ -1,0 +1,56 @@
+{
+  "name": "@minko-fe/postcss-pxtoviewport",
+  "version": "0.0.0",
+  "description": "✨ A CSS post-processor that converts px to viewport units (vw, vh, vmin, vmax).",
+  "type": "module",
+  "author": "hemengke1997 <https://github.com/hemengke1997>",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "README-en.md"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "scripts": {
+    "dev": "tsup --watch",
+    "build": "tsup",
+    "test": "vitest",
+    "lint": "eslint .",
+    "upgrade:deps": "pnpm update --i --L",
+    "bump": "bumpp package.json --commit --push --tag",
+    "release": "pnpm run build && pnpm publish --access public"
+  },
+  "keywords": [
+    "pxtoviewport",
+    "viewport",
+    "postcss",
+    "css",
+    "pixel",
+    "px",
+    "postcss-plugin",
+    "postcss-px-to-viewport",
+    "postcss-pxtoviewport"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "query-string": "^7.1.1"
+  },
+  "devDependencies": {
+    "@minko-fe/commitlint-config": "^1.1.7",
+    "@minko-fe/eslint-config-ts": "^1.1.7",
+    "@minko-fe/prettier-config": "^1.1.7",
+    "@minko-fe/tsconfig": "^1.1.7",
+    "eslint": "^8.22.0",
+    "postcss": "^8.4.16",
+    "bumpp": "^8.2.1",
+    "tsup": "^6.2.2",
+    "typescript": "^4.7.4",
+    "vitest": "^0.22.1"
+  }
+}
