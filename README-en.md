@@ -90,7 +90,7 @@ module.exports = {
 }
 ```
 
-#### set rootValue
+#### set viewportWidth
 ```css
 /* pxtoviewport?viewportWidth=750 */
 .rule {
@@ -106,7 +106,7 @@ That's right. For the specification, just refer to: [query-string](https://githu
 #### example
 
 ```css
-/* postcss-pxtoviewport?disable=false&rootValue=32&propList[]=*&replace=false&selectorBlackList[]=/some-class/i */
+/* postcss-pxtoviewport?disable=false&viewportWidth=750&propList[]=*&replace=false&selectorBlackList[]=/some-class/i */
 ```
 
 ### disable the next line in css file

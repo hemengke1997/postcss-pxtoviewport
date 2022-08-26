@@ -91,7 +91,7 @@ module.exports = {
 }
 ```
 
-#### 设置rootValue
+#### 设置viewportWidth
 ```css
 /* pxtoviewport?viewportWidth=750 */
 .rule {
@@ -107,7 +107,7 @@ module.exports = {
 #### 例子
 
 ```css
-/* postcss-pxtoviewport?disable=false&rootValue=32&propList[]=*&replace=false&selectorBlackList[]=/some-class/i */
+/* postcss-pxtoviewport?disable=false&viewportWidth=750&propList[]=*&replace=false&selectorBlackList[]=/some-class/i */
 ```
 
 ### 在css中，忽略某一行
