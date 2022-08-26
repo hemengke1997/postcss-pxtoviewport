@@ -1,6 +1,6 @@
 {
   "name": "@minko-fe/postcss-pxtoviewport",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "✨ A CSS post-processor that converts px to viewport units (vw, vh, vmin, vmax).",
   "type": "module",
   "author": "hemengke1997 <https://github.com/hemengke1997>",
