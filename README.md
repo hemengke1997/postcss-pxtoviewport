@@ -1,4 +1,4 @@
-# @minko-fe/postcss-pxtoviewport
+# postcss-pxtoviewport
 
 English docs: [[README-en.md](./README-en.md)]
 

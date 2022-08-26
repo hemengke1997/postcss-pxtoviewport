@@ -1,4 +1,4 @@
-# @minko-fe/postcss-pxtoviewport
+# postcss-pxtoviewport
 
 A plugin for [PostCSS](https://github.com/ai/postcss) that generates viewport units (vw, vh, vmin, vmax) from pixel units.
 
