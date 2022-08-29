@@ -43,7 +43,7 @@ module.exports = {
 | unitToConvert | `string` | `px` | 需要转化的单位
 | viewportWidth | `number` \| `((input: Input) => number)` | 375 | 视图窗口宽度
 | unitPrecision | `number` | 5 | 小数点后精度
-| propList | `string[]` | ['*'] | 可以从px改变为vw的属性，参考：[propList](#propList)
+| propList | `string[]` | `['*']` | 可以从px改变为vw的属性，参考：[propList](#propList)
 | viewportUnit | `string` | `vw` | 转化后的单位
 | fontViewportUnit | `string` | `vw` | font转化后的单位
 | selectorBlackList | `(string \| RegExp)[]` | [] | 忽略的选择器，保留为px。参考：[selectorBlackList](#selectorBlackList)

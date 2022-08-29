@@ -77,6 +77,18 @@ describe('pxtoviewport', () => {
 
     expect(processed).toBe(expected)
   })
+
+  test('should include higher priority than exclude', () => {
+    const options = {
+      exclude: 'node_modules',
+      include: 'node_modules',
+    }
+
+    const processed = postcss(pxtoviewport(options)).process(basicCSS, {
+      from: 'node_modules/path',
+    }).css
+    expect(processed).toBe(basicExpected)
+  })
 })
 
 describe('value parsing', () => {
