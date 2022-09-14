@@ -41,7 +41,7 @@ module.exports = {
 | unitToConvert | `string` | `px` | unit to convert, by default, it is px
 | viewportWidth | `number` \| `((input: Input) => number)` | 375 | The width of the viewport
 | unitPrecision | `number` | 5 | The decimal numbers to allow the vw units to grow to
-| propList | `string[]` | ['*'] | The properties that can change from px to vw. Refer to：[propList](#propList)
+| propList | `string[]` | `['*']` | The properties that can change from px to vw. Refer to：[propList](#propList)
 | viewportUnit | `string` | `vw` | Expected units
 | fontViewportUnit | `string` | `vw` | Expected units for font
 | propList | `string[]` | ['font', 'font-size', 'line-height', 'letter-spacing'] | The properties that can change from px to viewport. Refer to: [propList](#propList)
