@@ -144,5 +144,4 @@ function pxtoviewport(options?: PxtoviewportOptions) {
 
 pxtoviewport.postcss = true
 
-// eslint-disable-next-line no-restricted-syntax
 export default pxtoviewport
