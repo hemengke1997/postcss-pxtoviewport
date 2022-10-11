@@ -56,8 +56,9 @@ function pxtoviewport(options?: PxtoviewportOptions) {
 
   const plugin: PostcssPlugin = {
     postcssPlugin: 'postcss-pxtoviewport',
-    Once(root, { Warning }) {
+    Root(r, { Warning }) {
       if (opts.disable) return
+      const root = r.root()
       const firstNode = root.nodes[0]
       if (isOptionComment(firstNode)) {
         opts = {
@@ -129,7 +130,9 @@ function pxtoviewport(options?: PxtoviewportOptions) {
         }
       }
     },
-    OnceExit(root) {
+    RootExit(r) {
+      const root = r.root()
+
       const firstNode = root.nodes[0]
       if (isOptionComment(firstNode) && firstNode.text.includes('pxtoviewport')) {
         firstNode.remove()
