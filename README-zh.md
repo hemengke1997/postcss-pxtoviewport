@@ -40,7 +40,7 @@ module.exports = {
 
 | Name | Type | Default | Description
 |---------|----------|---------|---------
-| unitToConvert | `string` | `px` | 需要转化的单位
+| unitToConvert | `string` | `px` | 需要转化的单位，默认 `px`
 | viewportWidth | `number` \| `((input: Input) => number)` | 375 | 视图窗口宽度
 | unitPrecision | `number` | 5 | 小数点后精度
 | propList | `string[]` | `['*']` | 可以从px改变为vw的属性，参考：[propList](#propList)

@@ -1,6 +1,6 @@
 import type { Input, Plugin as PostcssPlugin, Rule } from 'postcss'
-import { disableNextComment } from './constant'
-import { getUnitRegexp } from './pixel-unit-regex'
+import { disableNextComment } from './utils/constant'
+import { getUnitRegexp } from './utils/pixel-unit-regex'
 import {
   blacklistedSelector,
   createPropListMatcher,
@@ -14,7 +14,7 @@ import {
   isOptionComment,
   isRepeatRun,
   judgeIsExclude,
-} from './utils'
+} from './utils/utils'
 
 export type PxtoviewportOptions = Partial<{
   unitToConvert: string
@@ -86,12 +86,13 @@ function pxtoviewport(options?: PxtoviewportOptions) {
       const satisfyPropList = createPropListMatcher(opts.propList)
 
       if (
-        !decl.value.includes('px') ||
         !satisfyPropList(decl.prop) ||
-        blacklistedSelector(opts.selectorBlackList, (decl.parent as Rule).selector)
+        blacklistedSelector(opts.selectorBlackList, (decl.parent as Rule).selector) ||
+        !decl.value.includes(opts.unitToConvert)
       ) {
         return
       }
+
       const prev = decl.prev()
 
       if (prev?.type === 'comment' && prev.text === disableNextComment) {
@@ -116,7 +117,7 @@ function pxtoviewport(options?: PxtoviewportOptions) {
       if (isExcludeFile) return
 
       function replacePxInRules() {
-        if (!atRule.params.includes('px')) return
+        if (!atRule.params.includes(opts.unitToConvert)) return
         const pxRegex = getUnitRegexp(opts.unitToConvert)
         atRule.params = atRule.params.replace(pxRegex, pxReplace(opts.viewportUnit))
       }

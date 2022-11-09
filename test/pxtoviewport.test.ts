@@ -2,7 +2,7 @@ import postcss from 'postcss'
 import { describe, expect, test } from 'vitest'
 import type { Input } from 'postcss'
 import pxtoviewport from '../src'
-import { filterPropList } from '../src/filter-prop-list'
+import { filterPropList } from '../src/utils/filter-prop-list'
 
 const basicCSS = '.rule { font-size: 15px }'
 const basicExpected = '.rule { font-size: 4vw }'
@@ -509,6 +509,26 @@ describe('inline comment', () => {
     const expected = '.rule {\nfont-size: 4vw;\nwidth: 100px;\nheight: 50px;\n}'
 
     const processed = postcss(pxtoviewport({ propList: ['*'] })).process(css).css
+
+    expect(processed).toBe(expected)
+  })
+})
+
+describe('unitToConvert', () => {
+  test('should ignore non px values by default', () => {
+    const expected = '.rule { font-size: 2em }'
+    const processed = postcss(pxtoviewport()).process(expected).css
+
+    expect(processed).toBe(expected)
+  })
+
+  test('should convert only values described in options', () => {
+    const rules = '.rule { font-size: 30em; line-height: 2px }'
+    const expected = '.rule { font-size: 8vw; line-height: 2px }'
+    const options = {
+      unitToConvert: 'em',
+    }
+    const processed = postcss(pxtoviewport(options)).process(rules).css
 
     expect(processed).toBe(expected)
   })

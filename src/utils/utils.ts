@@ -1,9 +1,9 @@
 import type { AtRule, ChildNode, Comment, Container, Declaration, Rule, Warning as postcssWarning } from 'postcss'
 import queryString from 'query-string'
+import type { PxtoviewportOptions } from '..'
+import { defaultOptions } from '..'
 import { maybeRegExp } from './constant'
 import { filterPropList } from './filter-prop-list'
-import type { PxtoviewportOptions } from '.'
-import { defaultOptions } from '.'
 
 export function initOptions(options?: PxtoviewportOptions) {
   return Object.assign({}, defaultOptions, options)
