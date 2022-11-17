@@ -369,6 +369,14 @@ describe('include', () => {
 })
 
 describe('top comment', () => {
+  test('regexp', () => {
+    const css = '/* postcss-pxtoviewport?disable=false */\n.rule { font-size: 15px }'
+    const expected = '.rule { font-size: 4vw }'
+    const processed = postcss(pxtoviewport()).process(css).css
+
+    expect(processed).toBe(expected)
+  })
+
   test('empty', () => {
     const css = ''
     const expected = ''

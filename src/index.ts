@@ -131,15 +131,19 @@ function pxtoviewport(options?: PxtoviewportOptions) {
         }
       }
     },
-    RootExit(r) {
+    RootExit() {
+      isExcludeFile = false
+
+      opts = initOptions(options)
+      isExcludeFile = false
+    },
+    OnceExit(r) {
       const root = r.root()
 
       const firstNode = root.nodes[0]
       if (isOptionComment(firstNode) && firstNode.text.includes('pxtoviewport')) {
         firstNode.remove()
       }
-      opts = initOptions(options)
-      isExcludeFile = false
     },
   }
 
