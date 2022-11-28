@@ -35,9 +35,11 @@ function parseRegExp(maybeRegExpArg: unknown) {
   return maybeRegExpArg
 }
 
+export const isPxtoviewportReg = /(?<=^pxtoviewport\?).+/g
+
 export function getOptionsFromComment(comment: Comment, Warning: typeof postcssWarning) {
   try {
-    let query = /(?<=pxtoviewport\?).+/g.exec(comment.text)?.[0]
+    let query = isPxtoviewportReg.exec(comment.text)?.[0]
     const ret: Record<string, any> = {}
 
     if (!query) return ret

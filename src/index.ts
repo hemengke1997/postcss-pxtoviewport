@@ -12,6 +12,7 @@ import {
   isArray,
   isBoolean,
   isOptionComment,
+  isPxtoviewportReg,
   isRepeatRun,
   judgeIsExclude,
 } from './utils/utils'
@@ -131,13 +132,18 @@ function pxtoviewport(options?: PxtoviewportOptions) {
         }
       }
     },
-    RootExit(r) {
-      const root = r.root()
-
-      const firstNode = root.nodes[0]
-      if (isOptionComment(firstNode) && firstNode.text.includes('pxtoviewport')) {
-        firstNode.remove()
+    Comment(comment, { Warning }) {
+      opts = {
+        ...opts,
+        ...getOptionsFromComment(comment, Warning),
       }
+    },
+    CommentExit(comment) {
+      if (comment.text.match(isPxtoviewportReg)?.length) {
+        comment.remove()
+      }
+    },
+    RootExit() {
       opts = initOptions(options)
       isExcludeFile = false
     },

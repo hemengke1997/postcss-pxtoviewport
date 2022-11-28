@@ -1,6 +1,7 @@
 import postcss from 'postcss'
 import { describe, expect, test } from 'vitest'
 import type { Input } from 'postcss'
+import nested from 'postcss-nested'
 import pxtoviewport from '../src'
 import { filterPropList } from '../src/utils/filter-prop-list'
 
@@ -487,6 +488,88 @@ describe('top comment', () => {
     const processed = postcss(pxtoviewport({ propList: ['*'] })).process(css).css
 
     const expected = '.rule { border: 1px solid #000; font-size: 4vw; margin: 1px 2.66667vw; }'
+    expect(processed).toBe(expected)
+  })
+
+  test('multipleComments', () => {
+    const css =
+      '/* pxtoviewport?disable=false */\n.enable { font-size: 15px; }\n/* pxtoviewport?disable=true */\n.disable { font-size: 15px; }'
+    const expected = '.enable { font-size: 4vw; }\n.disable { font-size: 15px; }'
+    const processed = postcss(pxtoviewport({ propList: ['*'] })).process(css).css
+
+    expect(processed).toBe(expected)
+  })
+
+  test('integrate postcss-nested', () => {
+    const css = `/* pxtoviewport?disable=false */
+    .class {
+      margin: -10px 20px;
+      border: 3px solid black;
+      font-size: 14px;
+      line-height: 20px;
+    }
+    .mmm {
+      /* pxtoviewport-disable-next-line */
+      font-size: 32px;
+      .nested {
+        font-size: 16px;
+      }
+    }
+    
+    /* pxtoviewport?disable=true */
+    @media (min-width: 750px) {
+      .class3 {
+        font-size: 16px;
+        line-height: 22px;
+        .nested {
+          font-size: 16px;
+        }
+      }
+    }
+    
+    /* pxtoviewport?disable=false */
+    .class2 {
+      margin: -10px 20px;
+      border: 3px solid black;
+      font-size: 14px;
+      line-height: 20px;
+      .nested {
+        font-size: 16px;
+      }
+    }`
+
+    const expected = `.class {
+      margin: -2.66667vw 5.33333vw;
+      border: 0.8vw solid black;
+      font-size: 3.73333vw;
+      line-height: 5.33333vw;
+    }
+    .mmm {
+      font-size: 32px;
+    }
+    .mmm .nested {
+        font-size: 4.26667vw;
+      }
+    @media (min-width: 750px) {
+      .class3 {
+        font-size: 16px;
+        line-height: 22px;
+      }
+        .class3 .nested {
+          font-size: 16px;
+        }
+    }
+    .class2 {
+      margin: -2.66667vw 5.33333vw;
+      border: 0.8vw solid black;
+      font-size: 3.73333vw;
+      line-height: 5.33333vw;
+    }
+    .class2 .nested {
+        font-size: 4.26667vw;
+      }`
+    const processed = postcss(pxtoviewport(), nested).process(css).css
+
     expect(processed).toBe(expected)
   })
 })
