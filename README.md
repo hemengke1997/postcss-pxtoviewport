@@ -22,9 +22,12 @@ pnpm install postcss @minko-fe/postcss-pxtoviewport -D
 #### example
 
 ```js
-module.exports = {
+// postcss.config.js
+import pxtoviewport from '@minko-fe/postcss-pxtoviewport'
+
+export default {
   plugins: [
-    require('@minko-fe/postcss-pxtoviewport')({
+    pxtoviewport({
       viewportWidth: 375,
       selectorBlackList: ['some-class'],
       propList: ['*'],
@@ -53,7 +56,8 @@ module.exports = {
 | include           | `string` \| `RegExp` \| `((filePath: string) => boolean)` \| `null` | null                                                   | The file path to convert px to viewport. Higher priority than `exclude`. Same rules as `exclude`                   |
 | exclude           | `string` \| `RegExp` \| `((filePath: string) => boolean) \| null`   | /node_modules/i                                        | The file path to ignore and leave as px. Refer to: [exclude](#exclude)                                             |
 | disable           | `boolean`                                                           | false                                                  | disable plugin                                                                                                     |
-| convertUnitOnEnd  | `ConvertUnit` \| `ConvertUnit[]` \| false \| null                   | null            | convert unit when plugin process end                                                                                                             |
+| convertUnitOnEnd  | `ConvertUnit` \| `ConvertUnit[]` \| false \| null                   | null                                                   | convert unit when plugin process end                                                                               |
+
 #### propList
 
 - Values need to be exact matches.
@@ -96,9 +100,12 @@ If you write `15PX` (as long as it's not `px`), the plugin also ignores it, beca
 If you want to use `PX` to ignore and want the final unit to be `px`, you can:
 
 ```js
-module.exports = {
+// postcss.config.js
+import pxtoviewport from '@minko-fe/postcss-pxtoviewport'
+
+export default {
   plugins: [
-    require('@minko-fe/postcss-pxtoviewport')({
+    pxtoviewport({
       convertUnitOnEnd: {
         sourceUnit: /[p|P][x|X]$/,
         targetUnit: 'px',
