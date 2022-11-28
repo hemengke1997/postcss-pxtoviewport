@@ -3,6 +3,7 @@ import { disableNextComment } from './utils/constant'
 import { getUnitRegexp } from './utils/pixel-unit-regex'
 import {
   blacklistedSelector,
+  convertUnit,
   createPropListMatcher,
   createPxReplace,
   declarationExists,
@@ -16,6 +17,11 @@ import {
   isRepeatRun,
   judgeIsExclude,
 } from './utils/utils'
+
+export interface ConvertUnit {
+  sourceUnit: string | RegExp
+  targetUnit: string
+}
 
 export type PxtoviewportOptions = Partial<{
   unitToConvert: string
@@ -31,6 +37,7 @@ export type PxtoviewportOptions = Partial<{
   include: string | RegExp | ((filePath: string) => boolean) | null
   exclude: string | RegExp | ((filePath: string) => boolean) | null
   disable: boolean
+  convertUnitOnEnd: ConvertUnit | ConvertUnit[] | false | null
 }>
 
 export const defaultOptions: Required<PxtoviewportOptions> = {
@@ -47,6 +54,7 @@ export const defaultOptions: Required<PxtoviewportOptions> = {
   include: null,
   exclude: /node_modules/i,
   disable: false,
+  convertUnitOnEnd: null,
 }
 
 function pxtoviewport(options?: PxtoviewportOptions) {
@@ -110,6 +118,18 @@ function pxtoviewport(options?: PxtoviewportOptions) {
         decl.value = value
       } else {
         decl.cloneAfter({ value })
+      }
+    },
+    DeclarationExit(decl) {
+      const { convertUnitOnEnd } = opts
+      if (convertUnitOnEnd) {
+        if (Array.isArray(convertUnitOnEnd)) {
+          convertUnitOnEnd.forEach((conv) => {
+            decl.value = convertUnit(decl.value, conv)
+          })
+        } else {
+          decl.value = convertUnit(decl.value, convertUnitOnEnd)
+        }
       }
     },
     AtRule(atRule) {

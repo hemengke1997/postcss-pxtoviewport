@@ -1,3 +1,21 @@
+## [1.0.1](https://github.com/hemengke1997/postcss-pxtoviewport/compare/v1.0.0...v1.0.1) (2022-11-28)
+
+
+### Features
+
+* ✨ support multiple pxtoviewport option comments in single css file ([71b646b](https://github.com/hemengke1997/postcss-pxtoviewport/commit/71b646bdfc9310ca8ced74047cf68f305bb19763))
+
+
+
+# [1.0.0](https://github.com/hemengke1997/postcss-pxtoviewport/compare/v0.0.4...v1.0.0) (2022-11-17)
+
+
+### Bug Fixes
+
+* strict regexp rule ([f54cdf2](https://github.com/hemengke1997/postcss-pxtoviewport/commit/f54cdf2379e5f785bd73a997b9778250cece23c2))
+
+
+
 ## [0.0.4](https://github.com/hemengke1997/postcss-pxtoviewport/compare/v0.0.3...v0.0.4) (2022-11-09)
 
 
