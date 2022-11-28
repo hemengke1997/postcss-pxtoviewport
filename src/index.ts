@@ -144,6 +144,8 @@ function pxtoviewport(options?: PxtoviewportOptions) {
       }
     },
     RootExit() {
+      isExcludeFile = false
+
       opts = initOptions(options)
       isExcludeFile = false
     },

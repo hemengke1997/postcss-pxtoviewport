@@ -2,8 +2,8 @@ import postcss from 'postcss'
 import { describe, expect, test } from 'vitest'
 import type { Input } from 'postcss'
 import nested from 'postcss-nested'
-import pxtoviewport from '../src'
 import { filterPropList } from '../src/utils/filter-prop-list'
+import pxtoviewport from '../src'
 
 const basicCSS = '.rule { font-size: 15px }'
 const basicExpected = '.rule { font-size: 4vw }'
@@ -370,6 +370,14 @@ describe('include', () => {
 })
 
 describe('top comment', () => {
+  test('regexp', () => {
+    const css = '/* pxtoviewport?disable=false */\n.rule { font-size: 15px }'
+    const expected = '.rule { font-size: 4vw }'
+    const processed = postcss(pxtoviewport()).process(css).css
+
+    expect(processed).toBe(expected)
+  })
+
   test('empty', () => {
     const css = ''
     const expected = ''

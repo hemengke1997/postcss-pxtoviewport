@@ -107,7 +107,7 @@ module.exports = {
 #### 例子
 
 ```css
-/* postcss-pxtoviewport?disable=false&viewportWidth=750&propList[]=*&replace=false&selectorBlackList[]=/some-class/i */
+/* pxtoviewport?disable=false&viewportWidth=750&propList[]=*&replace=false&selectorBlackList[]=/some-class/i */
 ```
 
 ### 在css中，忽略某一行
