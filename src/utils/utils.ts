@@ -205,7 +205,7 @@ enum EnumDataType {
 }
 
 function is(val: unknown, type: string) {
-  return toString.call(val) === `[object ${type}]`
+  return Object.toString.call(val) === `[object ${type}]`
 }
 export function isNumber(data: unknown): data is number {
   return is(data, EnumDataType.number)
