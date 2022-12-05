@@ -22,9 +22,12 @@ pnpm install postcss @minko-fe/postcss-pxtoviewport -D
 #### example
 
 ```js
-module.exports = {
+// postcss.config.js
+import pxtoviewport from '@minko-fe/postcss-pxtoviewport'
+
+export default {
   plugins: [
-    require('@minko-fe/postcss-pxtoviewport')({
+    pxtoviewport({
       viewportWidth: 375,
       selectorBlackList: ['some-class'],
       propList: ['*'],
@@ -125,9 +128,12 @@ module.exports = {
 如果你希望使用 `PX` 忽略并且希望最后得到的单位是 `px`，你可以这样
 
 ```js
-module.exports = {
+// postcss.config.js
+import pxtoviewport from '@minko-fe/postcss-pxtoviewport'
+
+export default {
   plugins: [
-    require('@minko-fe/postcss-pxtoviewport')({
+    pxtoviewport({
       convertUnitOnEnd: {
         sourceUnit: /[p|P][x|X]$/,
         targetUnit: 'px',

@@ -196,3 +196,5 @@ function pxtoviewport(options?: PxtoviewportOptions) {
 pxtoviewport.postcss = true
 
 export default pxtoviewport
+
+export { pxtoviewport }

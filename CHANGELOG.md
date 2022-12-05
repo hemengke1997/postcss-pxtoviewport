@@ -1,3 +1,12 @@
+## [1.0.2](https://github.com/hemengke1997/postcss-pxtoviewport/compare/v1.0.1...v1.0.2) (2022-11-28)
+
+
+### Features
+
+* ✨ support `convertUnitOnEnd` ([1bddfe9](https://github.com/hemengke1997/postcss-pxtoviewport/commit/1bddfe98b8ee14f888e08dad8543ab7d8950ea10))
+
+
+
 ## [1.0.1](https://github.com/hemengke1997/postcss-pxtoviewport/compare/v1.0.0...v1.0.1) (2022-11-28)
 
 
