@@ -3,6 +3,7 @@ import { disableNextComment } from './utils/constant'
 import { getUnitRegexp } from './utils/pixel-unit-regex'
 import {
   blacklistedSelector,
+  checkoutDisable,
   convertUnit,
   createPropListMatcher,
   createPxReplace,
@@ -14,7 +15,6 @@ import {
   isBoolean,
   isOptionComment,
   isPxtoviewportReg,
-  isRepeatRun,
   judgeIsExclude,
 } from './utils/utils'
 
@@ -57,6 +57,8 @@ export const defaultOptions: Required<PxtoviewportOptions> = {
   convertUnitOnEnd: null,
 }
 
+const postcssPlugin = 'postcss-pxtoviewport'
+
 function pxtoviewport(options?: PxtoviewportOptions) {
   let opts = initOptions(options)
   let isExcludeFile = false
@@ -64,9 +66,12 @@ function pxtoviewport(options?: PxtoviewportOptions) {
   let pxReplace: ReturnType<typeof createPxReplace>
 
   const plugin: PostcssPlugin = {
-    postcssPlugin: 'postcss-pxtoviewport',
+    postcssPlugin,
     Root(r, { Warning }) {
-      if (opts.disable) return
+      if (checkoutDisable({ disable: opts.disable, isExcludeFile })) {
+        return
+      }
+
       const root = r.root()
       const firstNode = root.nodes[0]
       if (isOptionComment(firstNode)) {
@@ -88,9 +93,9 @@ function pxtoviewport(options?: PxtoviewportOptions) {
       pxReplace = createPxReplace(viewportWidth, opts.unitPrecision, opts.minPixelValue)
     },
     Declaration(decl) {
-      if (opts.disable) return
-      if (isRepeatRun(decl)) return
-      if (isExcludeFile) return
+      if (checkoutDisable({ disable: opts.disable, isExcludeFile, r: decl })) {
+        return
+      }
 
       const satisfyPropList = createPropListMatcher(opts.propList)
 
@@ -121,6 +126,10 @@ function pxtoviewport(options?: PxtoviewportOptions) {
       }
     },
     DeclarationExit(decl) {
+      if (checkoutDisable({ disable: opts.disable, isExcludeFile })) {
+        return
+      }
+
       const { convertUnitOnEnd } = opts
       if (convertUnitOnEnd) {
         if (Array.isArray(convertUnitOnEnd)) {
@@ -133,9 +142,9 @@ function pxtoviewport(options?: PxtoviewportOptions) {
       }
     },
     AtRule(atRule) {
-      if (opts.disable) return
-      if (isRepeatRun(atRule)) return
-      if (isExcludeFile) return
+      if (checkoutDisable({ disable: opts.disable, isExcludeFile, r: atRule })) {
+        return
+      }
 
       function replacePxInRules() {
         if (!atRule.params.includes(opts.unitToConvert)) return
@@ -164,6 +173,10 @@ function pxtoviewport(options?: PxtoviewportOptions) {
       }
     },
     RootExit() {
+      if (checkoutDisable({ disable: opts.disable, isExcludeFile })) {
+        return
+      }
+
       isExcludeFile = false
 
       opts = initOptions(options)
@@ -171,7 +184,13 @@ function pxtoviewport(options?: PxtoviewportOptions) {
     },
   }
 
-  return plugin
+  if (opts.disable) {
+    return {
+      postcssPlugin,
+    }
+  } else {
+    return plugin
+  }
 }
 
 pxtoviewport.postcss = true
