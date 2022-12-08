@@ -1,3 +1,12 @@
+## [1.0.3](https://github.com/hemengke1997/postcss-pxtoviewport/compare/v1.0.2...v1.0.3) (2022-12-05)
+
+
+### Bug Fixes
+
+* `disable` option not working ([b40c803](https://github.com/hemengke1997/postcss-pxtoviewport/commit/b40c803f2790077d3d96d13c6322777122b34638))
+
+
+
 ## [1.0.2](https://github.com/hemengke1997/postcss-pxtoviewport/compare/v1.0.1...v1.0.2) (2022-11-28)
 
 
