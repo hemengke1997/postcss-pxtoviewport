@@ -4,18 +4,19 @@
 
 [PostCSS](https://github.com/ai/postcss)插件，可以从像素单位生成 viewport 单位(vw, vh, vmin, vmax)
 
-## 新功能
+## ✨ 新功能
 
 - 在样式文件中设置任意 `postcss-pxtoviewport` 支持的选项
 - 在样式文件中忽略某一行
+- **兼容vite**
 
-## 安装
+## 🔧 安装
 
 ```bash
 pnpm install postcss @minko-fe/postcss-pxtoviewport -D
 ```
 
-## 用法
+## ✍️ 使用
 
 ### postcss.config.js
 

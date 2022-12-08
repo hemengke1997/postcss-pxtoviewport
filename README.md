@@ -4,18 +4,19 @@
 
 A plugin for [PostCSS](https://github.com/ai/postcss) that generates viewport units (vw, vh, vmin, vmax) from pixel units.
 
-## New Features
+## ✨ New Features
 
 - specify any `postcss-pxtoviewport` option in css.
 - ignore line in css.
+- **compatible with vite**
 
-## Install
+## 🔧 Install
 
 ```bash
 pnpm install postcss @minko-fe/postcss-pxtoviewport -D
 ```
 
-## Usage
+## ✍️ Usage
 
 ### postcss.config.js
 
