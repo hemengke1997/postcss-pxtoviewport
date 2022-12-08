@@ -126,10 +126,6 @@ function pxtoviewport(options?: PxtoviewportOptions) {
       }
     },
     DeclarationExit(decl) {
-      if (checkoutDisable({ disable: opts.disable, isExcludeFile })) {
-        return
-      }
-
       const { convertUnitOnEnd } = opts
       if (convertUnitOnEnd) {
         if (Array.isArray(convertUnitOnEnd)) {
@@ -173,10 +169,6 @@ function pxtoviewport(options?: PxtoviewportOptions) {
       }
     },
     RootExit() {
-      if (checkoutDisable({ disable: opts.disable, isExcludeFile })) {
-        return
-      }
-
       isExcludeFile = false
 
       opts = initOptions(options)
@@ -184,7 +176,7 @@ function pxtoviewport(options?: PxtoviewportOptions) {
     },
   }
 
-  if (opts.disable) {
+  if (options?.disable) {
     return {
       postcssPlugin,
     }
