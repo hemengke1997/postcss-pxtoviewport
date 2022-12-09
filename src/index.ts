@@ -67,13 +67,13 @@ function pxtoviewport(options?: PxtoviewportOptions) {
 
   const plugin: PostcssPlugin = {
     postcssPlugin,
-    Root(r, { Warning }) {
+    Once(r, { Warning }) {
       if (checkoutDisable({ disable: opts.disable, isExcludeFile })) {
         return
       }
 
-      const root = r.root()
-      const firstNode = root.nodes[0]
+      const node = r.root()
+      const firstNode = node.nodes[0]
       if (isOptionComment(firstNode)) {
         opts = {
           ...opts,
@@ -81,14 +81,14 @@ function pxtoviewport(options?: PxtoviewportOptions) {
         }
       }
 
-      const filePath = root.source?.input.file
+      const filePath = node.source?.input.file
 
       const exclude = opts.exclude
       const include = opts.include
 
       isExcludeFile = judgeIsExclude(exclude, include, filePath)
       const viewportWidth =
-        typeof opts.viewportWidth === 'function' ? opts.viewportWidth(root.source!.input) : opts.viewportWidth
+        typeof opts.viewportWidth === 'function' ? opts.viewportWidth(node.source!.input) : opts.viewportWidth
 
       pxReplace = createPxReplace(viewportWidth, opts.unitPrecision, opts.minPixelValue)
     },
@@ -157,22 +157,31 @@ function pxtoviewport(options?: PxtoviewportOptions) {
         }
       }
     },
-    Comment(comment, { Warning }) {
+    Comment(node, { Warning }) {
+      const filePath = node.source?.input.file
+
       opts = {
         ...opts,
-        ...getOptionsFromComment(comment, Warning),
+        ...getOptionsFromComment(node, Warning),
       }
+
+      const exclude = opts.exclude
+      const include = opts.include
+
+      isExcludeFile = judgeIsExclude(exclude, include, filePath)
+      const viewportWidth =
+        typeof opts.viewportWidth === 'function' ? opts.viewportWidth(node.source!.input) : opts.viewportWidth
+
+      pxReplace = createPxReplace(viewportWidth, opts.unitPrecision, opts.minPixelValue)
     },
     CommentExit(comment) {
       if (comment.text.match(isPxtoviewportReg)?.length) {
         comment.remove()
       }
     },
-    RootExit() {
+    OnceExit() {
       isExcludeFile = false
-
       opts = initOptions(options)
-      isExcludeFile = false
     },
   }
 
