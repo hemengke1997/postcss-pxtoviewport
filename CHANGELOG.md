@@ -1,3 +1,12 @@
+## [1.0.4](https://github.com/hemengke1997/postcss-pxtoviewport/compare/v1.0.3...v1.0.4) (2022-12-08)
+
+
+### Bug Fixes
+
+* 🚑️ run all `exit` hook ([e0b1b7d](https://github.com/hemengke1997/postcss-pxtoviewport/commit/e0b1b7d2049766cd1b4cb64dceeb4d6afd5bd72b))
+
+
+
 ## [1.0.3](https://github.com/hemengke1997/postcss-pxtoviewport/compare/v1.0.2...v1.0.3) (2022-12-05)
 
 
