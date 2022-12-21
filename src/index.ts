@@ -13,10 +13,11 @@ import {
   initOptions,
   isArray,
   isBoolean,
+  isFunction,
   isOptionComment,
   isPxtoviewportReg,
   judgeIsExclude,
-} from './utils/utils'
+} from './utils'
 
 export interface ConvertUnit {
   sourceUnit: string | RegExp
@@ -68,10 +69,6 @@ function pxtoviewport(options?: PxtoviewportOptions) {
   const plugin: PostcssPlugin = {
     postcssPlugin,
     Once(r, { Warning }) {
-      if (checkoutDisable({ disable: opts.disable, isExcludeFile })) {
-        return
-      }
-
       const node = r.root()
       const firstNode = node.nodes[0]
       if (isOptionComment(firstNode)) {
@@ -87,8 +84,12 @@ function pxtoviewport(options?: PxtoviewportOptions) {
       const include = opts.include
 
       isExcludeFile = judgeIsExclude(exclude, include, filePath)
-      const viewportWidth =
-        typeof opts.viewportWidth === 'function' ? opts.viewportWidth(node.source!.input) : opts.viewportWidth
+
+      if (checkoutDisable({ disable: opts.disable, isExcludeFile })) {
+        return
+      }
+
+      const viewportWidth = isFunction(opts.viewportWidth) ? opts.viewportWidth(node.source!.input) : opts.viewportWidth
 
       pxReplace = createPxReplace(viewportWidth, opts.unitPrecision, opts.minPixelValue)
     },
@@ -169,8 +170,12 @@ function pxtoviewport(options?: PxtoviewportOptions) {
       const include = opts.include
 
       isExcludeFile = judgeIsExclude(exclude, include, filePath)
-      const viewportWidth =
-        typeof opts.viewportWidth === 'function' ? opts.viewportWidth(node.source!.input) : opts.viewportWidth
+
+      if (checkoutDisable({ disable: opts.disable, isExcludeFile })) {
+        return
+      }
+
+      const viewportWidth = isFunction(opts.viewportWidth) ? opts.viewportWidth(node.source!.input) : opts.viewportWidth
 
       pxReplace = createPxReplace(viewportWidth, opts.unitPrecision, opts.minPixelValue)
     },
@@ -189,9 +194,8 @@ function pxtoviewport(options?: PxtoviewportOptions) {
     return {
       postcssPlugin,
     }
-  } else {
-    return plugin
   }
+  return plugin
 }
 
 pxtoviewport.postcss = true

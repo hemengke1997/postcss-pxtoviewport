@@ -6,9 +6,9 @@ A plugin for [PostCSS](https://github.com/ai/postcss) that generates viewport un
 
 ## ✨ New Features
 
-- specify any `postcss-pxtoviewport` option in css.
-- ignore line in css.
-- **compatible with vite**
+- override any `postcss-pxtoviewport` options in css.
+- ignore any line in css.
+- **compatible with vite**.
 
 ## 🔧 Install
 
