@@ -1,3 +1,12 @@
+# [1.1.0](https://github.com/hemengke1997/postcss-pxtoviewport/compare/v1.0.4...v1.1.0) (2022-12-09)
+
+
+### Features
+
+* playground ([1aecc06](https://github.com/hemengke1997/postcss-pxtoviewport/commit/1aecc067bf3f73c2e384c5e7ad56eaed10e9913a))
+
+
+
 ## [1.0.4](https://github.com/hemengke1997/postcss-pxtoviewport/compare/v1.0.3...v1.0.4) (2022-12-08)
 
 
