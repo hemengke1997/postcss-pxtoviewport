@@ -1,8 +1,8 @@
 {
   "name": "vite-project",
-  "private": true,
-  "version": "0.0.0",
   "type": "module",
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -13,7 +13,7 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@minko-fe/postcss-pxtoviewport": "link: ./../../../",
+    "@minko-fe/postcss-pxtoviewport": "workspace:*",
     "@types/react": "^18.0.24",
     "@types/react-dom": "^18.0.8",
     "@vitejs/plugin-react": "^2.2.0",
