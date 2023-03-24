@@ -1,3 +1,21 @@
+## [1.1.2](https://github.com/hemengke1997/postcss-pxtoviewport/compare/v1.1.1...v1.1.2) (2023-03-24)
+
+
+### Bug Fixes
+
+* postcss plugin require module.export config ([1427a56](https://github.com/hemengke1997/postcss-pxtoviewport/commit/1427a56a1e5b19371112b61155899617ed03ec3d))
+
+
+
+## [1.1.1](https://github.com/hemengke1997/postcss-pxtoviewport/compare/v1.1.0...v1.1.1) (2023-01-31)
+
+
+### Bug Fixes
+
+* cjs namedExports ([49f2fb7](https://github.com/hemengke1997/postcss-pxtoviewport/commit/49f2fb78a96c5c5c211b2d6ad6d828cd9d7c8731))
+
+
+
 # [1.1.0](https://github.com/hemengke1997/postcss-pxtoviewport/compare/v1.0.4...v1.1.0) (2022-12-09)
 
 
