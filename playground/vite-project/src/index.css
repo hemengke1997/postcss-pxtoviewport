@@ -1,0 +1,7 @@
+@import './other.css';
+@import './tailwind.css';
+/* pxtoviewport?disable=true */
+html,
+body {
+  font-size: 8px;
+}

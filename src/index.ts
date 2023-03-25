@@ -3,6 +3,7 @@ import { disableNextComment } from './utils/constant'
 import { getUnitRegexp } from './utils/pixel-unit-regex'
 import {
   blacklistedSelector,
+  checkoutDisable,
   convertUnit,
   createPropListMatcher,
   createPxReplace,
@@ -12,11 +13,11 @@ import {
   initOptions,
   isArray,
   isBoolean,
+  isFunction,
   isOptionComment,
   isPxtoviewportReg,
-  isRepeatRun,
   judgeIsExclude,
-} from './utils/utils'
+} from './utils'
 
 export interface ConvertUnit {
   sourceUnit: string | RegExp
@@ -57,6 +58,8 @@ export const defaultOptions: Required<PxtoviewportOptions> = {
   convertUnitOnEnd: null,
 }
 
+const postcssPlugin = 'postcss-pxtoviewport'
+
 function pxtoviewport(options?: PxtoviewportOptions) {
   let opts = initOptions(options)
   let isExcludeFile = false
@@ -64,11 +67,10 @@ function pxtoviewport(options?: PxtoviewportOptions) {
   let pxReplace: ReturnType<typeof createPxReplace>
 
   const plugin: PostcssPlugin = {
-    postcssPlugin: 'postcss-pxtoviewport',
-    Root(r, { Warning }) {
-      if (opts.disable) return
-      const root = r.root()
-      const firstNode = root.nodes[0]
+    postcssPlugin,
+    Once(r, { Warning }) {
+      const node = r.root()
+      const firstNode = node.nodes[0]
       if (isOptionComment(firstNode)) {
         opts = {
           ...opts,
@@ -76,21 +78,25 @@ function pxtoviewport(options?: PxtoviewportOptions) {
         }
       }
 
-      const filePath = root.source?.input.file
+      const filePath = node.source?.input.file
 
       const exclude = opts.exclude
       const include = opts.include
 
       isExcludeFile = judgeIsExclude(exclude, include, filePath)
-      const viewportWidth =
-        typeof opts.viewportWidth === 'function' ? opts.viewportWidth(root.source!.input) : opts.viewportWidth
+
+      if (checkoutDisable({ disable: opts.disable, isExcludeFile })) {
+        return
+      }
+
+      const viewportWidth = isFunction(opts.viewportWidth) ? opts.viewportWidth(node.source!.input) : opts.viewportWidth
 
       pxReplace = createPxReplace(viewportWidth, opts.unitPrecision, opts.minPixelValue)
     },
     Declaration(decl) {
-      if (opts.disable) return
-      if (isRepeatRun(decl)) return
-      if (isExcludeFile) return
+      if (checkoutDisable({ disable: opts.disable, isExcludeFile, r: decl })) {
+        return
+      }
 
       const satisfyPropList = createPropListMatcher(opts.propList)
 
@@ -133,9 +139,9 @@ function pxtoviewport(options?: PxtoviewportOptions) {
       }
     },
     AtRule(atRule) {
-      if (opts.disable) return
-      if (isRepeatRun(atRule)) return
-      if (isExcludeFile) return
+      if (checkoutDisable({ disable: opts.disable, isExcludeFile, r: atRule })) {
+        return
+      }
 
       function replacePxInRules() {
         if (!atRule.params.includes(opts.unitToConvert)) return
@@ -152,25 +158,43 @@ function pxtoviewport(options?: PxtoviewportOptions) {
         }
       }
     },
-    Comment(comment, { Warning }) {
+    Comment(node, { Warning }) {
+      const filePath = node.source?.input.file
+
       opts = {
         ...opts,
-        ...getOptionsFromComment(comment, Warning),
+        ...getOptionsFromComment(node, Warning),
       }
+
+      const exclude = opts.exclude
+      const include = opts.include
+
+      isExcludeFile = judgeIsExclude(exclude, include, filePath)
+
+      if (checkoutDisable({ disable: opts.disable, isExcludeFile })) {
+        return
+      }
+
+      const viewportWidth = isFunction(opts.viewportWidth) ? opts.viewportWidth(node.source!.input) : opts.viewportWidth
+
+      pxReplace = createPxReplace(viewportWidth, opts.unitPrecision, opts.minPixelValue)
     },
     CommentExit(comment) {
       if (comment.text.match(isPxtoviewportReg)?.length) {
         comment.remove()
       }
     },
-    RootExit() {
+    OnceExit() {
       isExcludeFile = false
-
       opts = initOptions(options)
-      isExcludeFile = false
     },
   }
 
+  if (options?.disable) {
+    return {
+      postcssPlugin,
+    }
+  }
   return plugin
 }
 

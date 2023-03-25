@@ -15,7 +15,8 @@ export function isOptionComment(node: ChildNode | undefined): node is Comment {
 
 const processd = Symbol('processed')
 
-export function isRepeatRun(r: Rule | Declaration | AtRule) {
+export function isRepeatRun(r: Rule | Declaration | AtRule | undefined) {
+  if (!r) return false
   if ((r as unknown as Record<symbol, boolean>)[processd]) {
     return true
   }
@@ -189,6 +190,18 @@ export function convertUnit(value: string, convert: ConvertUnit) {
     return value.replace(new RegExp(convert.sourceUnit), convert.targetUnit)
   }
   return value
+}
+
+export function checkoutDisable(p: {
+  disable: boolean
+  isExcludeFile: boolean
+  r?: Parameters<typeof isRepeatRun>[0]
+}) {
+  const { disable, isExcludeFile, r } = p
+  if (disable || isExcludeFile || isRepeatRun(r)) {
+    return true
+  }
+  return false
 }
 
 enum EnumDataType {

@@ -1,3 +1,48 @@
+## [1.1.2](https://github.com/hemengke1997/postcss-pxtoviewport/compare/v1.1.1...v1.1.2) (2023-03-24)
+
+
+### Bug Fixes
+
+* postcss plugin require module.export config ([1427a56](https://github.com/hemengke1997/postcss-pxtoviewport/commit/1427a56a1e5b19371112b61155899617ed03ec3d))
+
+
+
+## [1.1.1](https://github.com/hemengke1997/postcss-pxtoviewport/compare/v1.1.0...v1.1.1) (2023-01-31)
+
+
+### Bug Fixes
+
+* cjs namedExports ([49f2fb7](https://github.com/hemengke1997/postcss-pxtoviewport/commit/49f2fb78a96c5c5c211b2d6ad6d828cd9d7c8731))
+
+
+
+# [1.1.0](https://github.com/hemengke1997/postcss-pxtoviewport/compare/v1.0.4...v1.1.0) (2022-12-09)
+
+
+### Features
+
+* playground ([1aecc06](https://github.com/hemengke1997/postcss-pxtoviewport/commit/1aecc067bf3f73c2e384c5e7ad56eaed10e9913a))
+
+
+
+## [1.0.4](https://github.com/hemengke1997/postcss-pxtoviewport/compare/v1.0.3...v1.0.4) (2022-12-08)
+
+
+### Bug Fixes
+
+* 🚑️ run all `exit` hook ([e0b1b7d](https://github.com/hemengke1997/postcss-pxtoviewport/commit/e0b1b7d2049766cd1b4cb64dceeb4d6afd5bd72b))
+
+
+
+## [1.0.3](https://github.com/hemengke1997/postcss-pxtoviewport/compare/v1.0.2...v1.0.3) (2022-12-05)
+
+
+### Bug Fixes
+
+* `disable` option not working ([b40c803](https://github.com/hemengke1997/postcss-pxtoviewport/commit/b40c803f2790077d3d96d13c6322777122b34638))
+
+
+
 ## [1.0.2](https://github.com/hemengke1997/postcss-pxtoviewport/compare/v1.0.1...v1.0.2) (2022-11-28)
 
 
