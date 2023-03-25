@@ -18,6 +18,7 @@ import {
   isPxtoviewportReg,
   judgeIsExclude,
 } from './utils'
+import type { ParseOptions } from './utils/query-parse'
 
 export interface ConvertUnit {
   sourceUnit: string | RegExp
@@ -39,6 +40,7 @@ export type PxtoviewportOptions = Partial<{
   exclude: string | RegExp | ((filePath: string) => boolean) | null
   disable: boolean
   convertUnitOnEnd: ConvertUnit | ConvertUnit[] | false | null
+  parseOptions: ParseOptions
 }>
 
 export const defaultOptions: Required<PxtoviewportOptions> = {
@@ -56,6 +58,7 @@ export const defaultOptions: Required<PxtoviewportOptions> = {
   exclude: /node_modules/i,
   disable: false,
   convertUnitOnEnd: null,
+  parseOptions: {},
 }
 
 const postcssPlugin = 'postcss-pxtoviewport'
@@ -74,7 +77,7 @@ function pxtoviewport(options?: PxtoviewportOptions) {
       if (isOptionComment(firstNode)) {
         opts = {
           ...opts,
-          ...getOptionsFromComment(firstNode, Warning),
+          ...getOptionsFromComment(firstNode, Warning, opts.parseOptions),
         }
       }
 
@@ -163,7 +166,7 @@ function pxtoviewport(options?: PxtoviewportOptions) {
 
       opts = {
         ...opts,
-        ...getOptionsFromComment(node, Warning),
+        ...getOptionsFromComment(node, Warning, opts.parseOptions),
       }
 
       const exclude = opts.exclude
