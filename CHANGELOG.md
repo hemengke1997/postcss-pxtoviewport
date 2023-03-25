@@ -1,3 +1,17 @@
+# [1.2.0](https://github.com/hemengke1997/postcss-pxtoviewport/compare/v1.1.2...v1.2.0) (2023-03-25)
+
+
+### Bug Fixes
+
+* toString ([a3cda51](https://github.com/hemengke1997/postcss-pxtoviewport/commit/a3cda510cc6d0c5386c897497f204fbc07fd266d))
+
+
+### Features
+
+* extract `query-string`.parse function ([e2deae4](https://github.com/hemengke1997/postcss-pxtoviewport/commit/e2deae4d9c2f0adb3aaf72a4823813a480113841))
+
+
+
 ## [1.1.2](https://github.com/hemengke1997/postcss-pxtoviewport/compare/v1.1.1...v1.1.2) (2023-03-24)
 
 
