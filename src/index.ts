@@ -1,5 +1,5 @@
 import type { Input, Plugin as PostcssPlugin, Rule } from 'postcss'
-import { disableNextComment } from './utils/constant'
+import { DISABLE_NEXT_COMMENT } from './utils/constant'
 import { getUnitRegexp } from './utils/pixel-unit-regex'
 import {
   blacklistedSelector,
@@ -113,7 +113,7 @@ function pxtoviewport(options?: PxtoviewportOptions) {
 
       const prev = decl.prev()
 
-      if (prev?.type === 'comment' && prev.text === disableNextComment) {
+      if (prev?.type === 'comment' && prev.text === DISABLE_NEXT_COMMENT) {
         prev.remove()
         return
       }

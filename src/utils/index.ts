@@ -1,7 +1,7 @@
 import type { AtRule, ChildNode, Comment, Container, Declaration, Rule, Warning as postcssWarning } from 'postcss'
 import type { ConvertUnit, PxtoviewportOptions } from '..'
 import { defaultOptions } from '..'
-import { maybeRegExp } from './constant'
+import { MAYBE_REGEXP } from './constant'
 import { filterPropList } from './filter-prop-list'
 import type { ParseOptions } from './query-parse'
 import { parse } from './query-parse'
@@ -29,12 +29,12 @@ function reRegExp() {
   return /^\/((?:\\\/|[^\/])+)\/([imgy]*)$/
 }
 
-function parseRegExp(maybeRegExpArg: unknown) {
+function parseRegExp(MAYBE_REGEXPArg: unknown) {
   const RE_REGEXP = reRegExp()
-  if (isString(maybeRegExpArg) && RE_REGEXP.test(maybeRegExpArg)) {
-    return new RegExp(RE_REGEXP.exec(maybeRegExpArg)?.[1] || '', RE_REGEXP.exec(maybeRegExpArg)?.[2])
+  if (isString(MAYBE_REGEXPArg) && RE_REGEXP.test(MAYBE_REGEXPArg)) {
+    return new RegExp(RE_REGEXP.exec(MAYBE_REGEXPArg)?.[1] || '', RE_REGEXP.exec(MAYBE_REGEXPArg)?.[2])
   }
-  return maybeRegExpArg
+  return MAYBE_REGEXPArg
 }
 
 export const isPxtoviewportReg = /(?<=^pxtoviewport\?).+/g
@@ -59,7 +59,7 @@ export function getOptionsFromComment(comment: Comment, Warning: typeof postcssW
     for (const k of Object.keys(parsed)) {
       if (defaultKeys.includes(k)) {
         let cur = parsed[k]
-        if (maybeRegExp.includes(k)) {
+        if (MAYBE_REGEXP.includes(k)) {
           if (Array.isArray(cur)) {
             cur = cur.map((t) => {
               return parseRegExp(t)
