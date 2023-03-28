@@ -1,3 +1,12 @@
+## [1.2.1](https://github.com/hemengke1997/postcss-pxtoviewport/compare/v1.2.0...v1.2.1) (2023-03-28)
+
+
+### Bug Fixes
+
+* transform esm deps ([4aa9a1a](https://github.com/hemengke1997/postcss-pxtoviewport/commit/4aa9a1a13abdf576953d6317d7c7ed869f0dfefd))
+
+
+
 # [1.2.0](https://github.com/hemengke1997/postcss-pxtoviewport/compare/v1.1.2...v1.2.0) (2023-03-25)
 
 
