@@ -13,14 +13,11 @@ importers:
       decode-uri-component: ^0.4.1
       eslint: ^8.36.0
       postcss: ^8.4.21
-      postcss-nested: ^6.0.0
+      postcss-nested: ^6.0.1
       split-on-first: ^3.0.0
       tsup: ^6.7.0
       typescript: ^4.8.4
       vitest: ^0.29.7
-    dependencies:
-      decode-uri-component: 0.4.1
-      split-on-first: 3.0.0
     devDependencies:
       '@minko-fe/commitlint-config': registry.npmmirror.com/@minko-fe/commitlint-config/1.2.32
       '@minko-fe/eslint-config-ts': registry.npmmirror.com/@minko-fe/eslint-config-ts/1.2.32_oetr3kuzbjncgm24ninkrag7ya
@@ -28,9 +25,11 @@ importers:
       '@minko-fe/tsconfig': registry.npmmirror.com/@minko-fe/tsconfig/1.2.32_typescript@4.8.4
       bumpp: registry.npmmirror.com/bumpp/9.0.0
       conventional-changelog-cli: registry.npmmirror.com/conventional-changelog-cli/2.2.2
+      decode-uri-component: 0.4.1
       eslint: registry.npmmirror.com/eslint/8.36.0
       postcss: registry.npmmirror.com/postcss/8.4.21
       postcss-nested: 6.0.1_postcss@8.4.21
+      split-on-first: 3.0.0
       tsup: registry.npmmirror.com/tsup/6.7.0_6a2cqitbvcmutfdk5rpoh5sgci
       typescript: 4.8.4
       vitest: registry.npmmirror.com/vitest/0.29.7
@@ -785,7 +784,7 @@ packages:
   /decode-uri-component/0.4.1:
     resolution: {integrity: sha512-+8VxcR21HhTy8nOt6jf20w0c9CADrw1O8d+VZ/YzzCt4bJ3uBjw+D1q2osAB8RnpwwaeYBxy0HyKQxD5JBMuuQ==}
     engines: {node: '>=14.16'}
-    dev: false
+    dev: true
 
   /defined/1.0.1:
     resolution: {integrity: sha512-hsBd2qSVCRE+5PmNdHt1uzyrFu5d3RwmFDKzyNZMFq/EwDNJF7Ee5+D5oEKF0hU6LhtoUF1macFvOe4AskQC1Q==}
@@ -1289,7 +1288,7 @@ packages:
     peerDependencies:
       postcss: ^8.2.14
     dependencies:
-      postcss: 8.4.21
+      postcss: registry.npmmirror.com/postcss/8.4.21
       postcss-selector-parser: 6.0.11
     dev: true
 
@@ -1416,7 +1415,7 @@ packages:
   /split-on-first/3.0.0:
     resolution: {integrity: sha512-qxQJTx2ryR0Dw0ITYyekNQWpz6f8dGd7vffGNflQQ3Iqj9NJ6qiZ7ELpZsJ/QBhIVAiDfXdag3+Gp8RvWa62AA==}
     engines: {node: '>=12'}
-    dev: false
+    dev: true
 
   /supports-color/5.5.0:
     resolution: {integrity: sha512-QjVjwdXIt408MIiAqCX4oUKsgU2EqAGzs2Ppkm4aQYbjm+ZEWEcW4SfFNTr4uMNZma0ey4f5lgLrkB0aX0QMow==}
