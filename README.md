@@ -91,7 +91,7 @@ export default {
 #### disable plugin
 
 ```css
-/* pxtoviewport?disabled=true */
+/* pxtoviewport?disable=true */
 .rule {
   font-size: 15px; // 15px
 }

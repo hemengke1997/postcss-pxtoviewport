@@ -41,10 +41,12 @@ export const isPxtoviewportReg = /(?<=^pxtoviewport\?).+/g
 
 export function getOptionsFromComment(comment: Comment, Warning: typeof postcssWarning, parseOptions: ParseOptions) {
   try {
-    let query = isPxtoviewportReg.exec(comment.text)?.[0]
-    const ret: Record<string, any> = {}
+    const index = comment.text.search(isPxtoviewportReg)
 
-    if (!query) return ret
+    const ret: Record<string, any> = {}
+    let query = comment.text.slice(index)
+
+    if (!query || index === -1) return ret
     query = query.replaceAll(/\s+/g, '')
 
     const defaultKeys = Object.keys(defaultOptions)
