@@ -1,3 +1,12 @@
+## [1.2.2](https://github.com/hemengke1997/postcss-pxtoviewport/compare/v1.2.1...v1.2.2) (2023-06-01)
+
+
+### Bug Fixes
+
+* `disable` typo error ([ef9e978](https://github.com/hemengke1997/postcss-pxtoviewport/commit/ef9e9782fd0ebd9008b01373a3e2b8d5ea20d735))
+
+
+
 ## [1.2.1](https://github.com/hemengke1997/postcss-pxtoviewport/compare/v1.2.0...v1.2.1) (2023-03-28)
 
 
