@@ -1,3 +1,12 @@
+# [1.3.0-beta.0](https://github.com/hemengke1997/postcss-pxtoviewport/compare/v1.2.2...v1.3.0-beta.0) (2023-06-19)
+
+
+### Bug Fixes
+
+* vite parallel build ([81ef5e4](https://github.com/hemengke1997/postcss-pxtoviewport/commit/81ef5e41b658281ba36e5d43676d70f9162683b8))
+
+
+
 ## [1.2.2](https://github.com/hemengke1997/postcss-pxtoviewport/compare/v1.2.1...v1.2.2) (2023-06-01)
 
 
