@@ -3,20 +3,17 @@ import { DISABLE_NEXT_COMMENT } from './utils/constant'
 import { getUnitRegexp } from './utils/pixel-unit-regex'
 import {
   blacklistedSelector,
-  checkoutDisable,
+  checkIfDisable,
   convertUnit,
   createPropListMatcher,
-  createPxReplace,
+  currentOptions,
   declarationExists,
-  getOptionsFromComment,
   getUnit,
   initOptions,
   isArray,
   isBoolean,
-  isFunction,
-  isOptionComment,
   isPxtoviewportReg,
-  judgeIsExclude,
+  setupCurrentOptions,
 } from './utils'
 import type { ParseOptions } from './utils/query-parse'
 
@@ -64,40 +61,35 @@ export const defaultOptions: Required<PxtoviewportOptions> = {
 const postcssPlugin = 'postcss-pxtoviewport'
 
 function pxtoviewport(options?: PxtoviewportOptions) {
-  let opts = initOptions(options)
-  let isExcludeFile = false
-
-  let pxReplace: ReturnType<typeof createPxReplace>
+  const ORIGINAL_OPTIONS = initOptions(options)
 
   const plugin: PostcssPlugin = {
     postcssPlugin,
-    Once(r, { Warning }) {
+    Once(r, h) {
       const node = r.root()
       const firstNode = node.nodes[0]
-      if (isOptionComment(firstNode)) {
-        opts = {
-          ...opts,
-          ...getOptionsFromComment(firstNode, Warning, opts.parseOptions),
-        }
+
+      h[currentOptions] = {
+        isExcludeFile: false,
+        pxReplace: undefined,
+        viewportWidth: undefined,
+        originOpts: ORIGINAL_OPTIONS,
       }
 
-      const filePath = node.source?.input.file
-
-      const exclude = opts.exclude
-      const include = opts.include
-
-      isExcludeFile = judgeIsExclude(exclude, include, filePath)
-
-      if (checkoutDisable({ disable: opts.disable, isExcludeFile })) {
-        return
-      }
-
-      const viewportWidth = isFunction(opts.viewportWidth) ? opts.viewportWidth(node.source!.input) : opts.viewportWidth
-
-      pxReplace = createPxReplace(viewportWidth, opts.unitPrecision, opts.minPixelValue)
+      setupCurrentOptions(h as any, firstNode)
     },
-    Declaration(decl) {
-      if (checkoutDisable({ disable: opts.disable, isExcludeFile, r: decl })) {
+    Comment(node, h) {
+      setupCurrentOptions(h as any, node)
+    },
+    CommentExit(comment) {
+      if (comment.text.match(isPxtoviewportReg)?.length) {
+        comment.remove()
+      }
+    },
+    Declaration(decl, h) {
+      const opts = h[currentOptions].originOpts
+
+      if (checkIfDisable({ disable: opts.disable, isExcludeFile: h[currentOptions].isExcludeFile, r: decl })) {
         return
       }
 
@@ -119,7 +111,7 @@ function pxtoviewport(options?: PxtoviewportOptions) {
       }
       const pxRegex = getUnitRegexp(opts.unitToConvert)
       const unit = getUnit(decl.prop, opts)
-      const value = decl.value.replace(pxRegex, pxReplace(unit))
+      const value = decl.value.replace(pxRegex, h[currentOptions].pxReplace(unit))
 
       if (declarationExists(decl.parent!, decl.prop, value)) return
 
@@ -129,7 +121,8 @@ function pxtoviewport(options?: PxtoviewportOptions) {
         decl.cloneAfter({ value })
       }
     },
-    DeclarationExit(decl) {
+    DeclarationExit(decl, h) {
+      const opts = h[currentOptions].originOpts
       const { convertUnitOnEnd } = opts
       if (convertUnitOnEnd) {
         if (Array.isArray(convertUnitOnEnd)) {
@@ -141,15 +134,19 @@ function pxtoviewport(options?: PxtoviewportOptions) {
         }
       }
     },
-    AtRule(atRule) {
-      if (checkoutDisable({ disable: opts.disable, isExcludeFile, r: atRule })) {
+    AtRule(atRule, h) {
+      const opts = h[currentOptions].originOpts
+
+      if (checkIfDisable({ disable: opts.disable, isExcludeFile: h[currentOptions].isExcludeFile, r: atRule })) {
         return
       }
 
       function replacePxInRules() {
         if (!atRule.params.includes(opts.unitToConvert)) return
         const pxRegex = getUnitRegexp(opts.unitToConvert)
-        atRule.params = atRule.params.replace(pxRegex, pxReplace(opts.viewportUnit))
+        atRule.params = h[currentOptions].pxReplace
+          ? atRule.params.replace(pxRegex, h[currentOptions].pxReplace(opts.viewportUnit))
+          : atRule.params
       }
 
       if (isBoolean(opts.atRules) && opts.atRules) {
@@ -160,36 +157,6 @@ function pxtoviewport(options?: PxtoviewportOptions) {
           replacePxInRules()
         }
       }
-    },
-    Comment(node, { Warning }) {
-      const filePath = node.source?.input.file
-
-      opts = {
-        ...opts,
-        ...getOptionsFromComment(node, Warning, opts.parseOptions),
-      }
-
-      const exclude = opts.exclude
-      const include = opts.include
-
-      isExcludeFile = judgeIsExclude(exclude, include, filePath)
-
-      if (checkoutDisable({ disable: opts.disable, isExcludeFile })) {
-        return
-      }
-
-      const viewportWidth = isFunction(opts.viewportWidth) ? opts.viewportWidth(node.source!.input) : opts.viewportWidth
-
-      pxReplace = createPxReplace(viewportWidth, opts.unitPrecision, opts.minPixelValue)
-    },
-    CommentExit(comment) {
-      if (comment.text.match(isPxtoviewportReg)?.length) {
-        comment.remove()
-      }
-    },
-    OnceExit() {
-      isExcludeFile = false
-      opts = initOptions(options)
     },
   }
 
