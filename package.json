@@ -45,7 +45,6 @@
   "devDependencies": {
     "@minko-fe/commitlint-config": "^1.2.32",
     "@minko-fe/eslint-config-ts": "^1.2.32",
-    "@minko-fe/prettier-config": "^1.2.32",
     "@minko-fe/tsconfig": "^1.2.32",
     "bumpp": "^9.0.0",
     "conventional-changelog-cli": "^2.2.2",
