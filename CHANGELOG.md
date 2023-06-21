@@ -1,3 +1,12 @@
+# [1.3.0-beta.1](https://github.com/hemengke1997/postcss-pxtoviewport/compare/v1.3.0-beta.0...v1.3.0-beta.1) (2023-06-21)
+
+
+### Bug Fixes
+
+* comment might be undefined ([a87715f](https://github.com/hemengke1997/postcss-pxtoviewport/commit/a87715f637b09cb9601f40e8d4caabf60f746e20))
+
+
+
 # [1.3.0-beta.0](https://github.com/hemengke1997/postcss-pxtoviewport/compare/v1.2.2...v1.3.0-beta.0) (2023-06-19)
 
 
