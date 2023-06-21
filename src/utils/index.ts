@@ -1,4 +1,4 @@
-import type { AtRule, ChildNode, Comment, Container, Declaration, Rule } from 'postcss'
+import type { AtRule, ChildNode, Comment, Container, Declaration, Root, Rule } from 'postcss'
 import type { ConvertUnit, PxtoviewportOptions } from '..'
 import { defaultOptions } from '..'
 import { MAYBE_REGEXP } from './constant'
@@ -211,15 +211,24 @@ export type H = {
   }
 }
 
-export function setupCurrentOptions(h: H, node: Comment | ChildNode) {
+export function setupCurrentOptions(
+  h: H,
+  {
+    node,
+    comment,
+  }: {
+    node?: ChildNode | Root
+    comment?: ChildNode | Comment
+  },
+) {
   const opts = h[currentOptions].originOpts
 
   const filePath = node?.source?.input.file
 
-  if ((node as Comment)?.text) {
+  if (isOptionComment(comment)) {
     h[currentOptions].originOpts = {
       ...opts,
-      ...getOptionsFromComment(node as Comment, opts.parseOptions),
+      ...getOptionsFromComment(comment, opts.parseOptions),
     }
   }
 
@@ -233,7 +242,7 @@ export function setupCurrentOptions(h: H, node: Comment | ChildNode) {
   }
 
   h[currentOptions].viewportWidth = isFunction(opts.viewportWidth)
-    ? opts.viewportWidth(node.source!.input)
+    ? opts.viewportWidth(node?.source!.input)
     : opts.viewportWidth
 
   h[currentOptions].pxReplace = createPxReplace(h[currentOptions].viewportWidth, opts.unitPrecision, opts.minPixelValue)

@@ -24,7 +24,7 @@ export interface ConvertUnit {
 
 export type PxtoviewportOptions = Partial<{
   unitToConvert: string
-  viewportWidth: number | ((input: Input) => number)
+  viewportWidth: number | ((input: Input | undefined) => number)
   unitPrecision: number
   propList: string[]
   viewportUnit: string
@@ -76,10 +76,10 @@ function pxtoviewport(options?: PxtoviewportOptions) {
         originOpts: ORIGINAL_OPTIONS,
       }
 
-      setupCurrentOptions(h as any, firstNode)
+      setupCurrentOptions(h as any, { node, comment: firstNode })
     },
     Comment(node, h) {
-      setupCurrentOptions(h as any, node)
+      setupCurrentOptions(h as any, { node, comment: node })
     },
     CommentExit(comment) {
       if (comment.text.match(isPxtoviewportReg)?.length) {
