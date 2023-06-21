@@ -180,8 +180,8 @@ describe('viewportWidth', () => {
     const css2 = '.rule { font-size: 30px }'
     const expected = '.rule { font-size: 4vw }'
     const options = {
-      viewportWidth(input: Input): number {
-        if (input.from.includes('basic.css')) {
+      viewportWidth(input: Input | undefined): number {
+        if (input?.from.includes('basic.css')) {
           return 375
         }
         return 750
