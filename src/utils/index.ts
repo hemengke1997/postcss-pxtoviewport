@@ -1,10 +1,16 @@
-import type { AtRule, ChildNode, Comment, Container, Declaration, Root, Rule } from 'postcss'
-import type { ConvertUnit, PxtoviewportOptions } from '..'
-import { defaultOptions } from '..'
+import {
+  type AtRule,
+  type ChildNode,
+  type Comment,
+  type Container,
+  type Declaration,
+  type Root,
+  type Rule,
+} from 'postcss'
+import { type ConvertUnit, type PxtoviewportOptions, defaultOptions } from '..'
 import { MAYBE_REGEXP } from './constant'
 import { filterPropList } from './filter-prop-list'
-import type { ParseOptions } from './query-parse'
-import { parse } from './query-parse'
+import { type ParseOptions, parse } from './query-parse'
 
 export function initOptions(options?: PxtoviewportOptions) {
   return Object.assign({}, defaultOptions, options)
@@ -26,7 +32,7 @@ export function isRepeatRun(r: Rule | Declaration | AtRule | undefined) {
 }
 
 function reRegExp() {
-  return /^\/((?:\\\/|[^\/])+)\/([imgy]*)$/
+  return /^\/((?:\\\/|[^/])+)\/([gimy]*)$/
 }
 
 function parseRegExp(MAYBE_REGEXPArg: unknown) {
@@ -66,10 +72,8 @@ export function getOptionsFromComment(comment: Comment, parseOptions: ParseOptio
             cur = cur.map((t) => {
               return parseRegExp(t)
             }) as any
-          } else {
-            if (isString(cur) && RE_REGEXP.test(cur)) {
-              cur = parseRegExp(cur) as any
-            }
+          } else if (isString(cur) && RE_REGEXP.test(cur)) {
+            cur = parseRegExp(cur) as any
           }
         }
 
@@ -124,7 +128,7 @@ export function createPxReplace(
   return (viewportUnit: PxtoviewportOptions['viewportUnit']) => {
     return (m: string, $1: string) => {
       if (!$1) return m
-      const pixels = parseFloat($1)
+      const pixels = Number.parseFloat($1)
       if (pixels <= minPixelValue) return m
       const fixedVal = toFixed((pixels / viewportWidth) * 100, unitPrecision)
       return fixedVal === 0 ? '0' : `${fixedVal}${viewportUnit}`

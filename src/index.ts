@@ -1,4 +1,4 @@
-import type { Input, Plugin as PostcssPlugin, Rule } from 'postcss'
+import { type Input, type Plugin as PostcssPlugin, type Rule } from 'postcss'
 import { DISABLE_NEXT_COMMENT } from './utils/constant'
 import { getUnitRegexp } from './utils/pixel-unit-regex'
 import {
@@ -15,7 +15,7 @@ import {
   isPxtoviewportReg,
   setupCurrentOptions,
 } from './utils'
-import type { ParseOptions } from './utils/query-parse'
+import { type ParseOptions } from './utils/query-parse'
 
 export interface ConvertUnit {
   sourceUnit: string | RegExp

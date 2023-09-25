@@ -1,6 +1,5 @@
-import postcss from 'postcss'
+import postcss, { type Input } from 'postcss'
 import { describe, expect, test } from 'vitest'
-import type { Input } from 'postcss'
 import nested from 'postcss-nested'
 import { filterPropList } from '../src/utils/filter-prop-list'
 import pxtoviewport from '../src'
@@ -644,7 +643,7 @@ describe('convertUnitOnEnd', () => {
     const processed = postcss(
       pxtoviewport({
         convertUnitOnEnd: {
-          sourceUnit: /[p|P][x|X]$/,
+          sourceUnit: /[Pp|][Xx|]$/,
           targetUnit: 'px',
         },
       }),
