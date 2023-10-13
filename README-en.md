@@ -4,11 +4,13 @@
 
 A plugin for [PostCSS](https://github.com/ai/postcss) that generates viewport units (vw, vh, vmin, vmax) from pixel units.
 
-## ✨ New Features
+**If you don't need the following new features, you can use the official library: [postcss-px-to-viewport](https://github.com/evrone/postcss-px-to-viewport)**
 
-- override any `postcss-pxtoviewport` options in css.
-- ignore any line in css.
-- **compatible with vite**.
+## ✨ [New Features](#-about-new-features)
+
+- Dynamically override any `postcss-pxtoviewport` supported option in style files
+- Dynamically disable transforming rem in style files.
+- **Compatible with vite, _Solved the problem of px to rem failing after vite build_**.
 
 ## 🔧 Install
 

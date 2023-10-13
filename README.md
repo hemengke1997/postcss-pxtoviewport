@@ -4,9 +4,9 @@
 
 [PostCSS](https://github.com/ai/postcss)插件，可以从像素单位生成 viewport 单位(vw, vh, vmin, vmax)
 
-**如果你不需要以下新功能，可以使用官方库：[postcss-px-to-viewport](https://github.com/evrone/postcss-px-to-viewport)**
+**如果你不需要以下新特性，可以使用官方库：[postcss-px-to-viewport](https://github.com/evrone/postcss-px-to-viewport)**
 
-## ✨ 新功能
+## ✨ [新特性](#-关于新特性)
 
 - 在样式文件中重写任意 `postcss-pxtoviewport` 支持的选项
 - 在样式文件动态禁用转化viewport
