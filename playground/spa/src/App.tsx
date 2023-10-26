@@ -1,12 +1,16 @@
-import { Header } from './components/Header'
-import styles from './index.module.css'
+import A from './components/A'
+import B from './components/B'
+import C from './components/C'
+import './App.css'
 
 function App() {
   return (
-    <div>
-      <Header />
-      <div className={styles.font}>viewport-font</div>
-      <div className='other text-[16px]'>px-other</div>
+    <div className='App flex flex-col gap-y-[12px]'>
+      <div className={'text-2xl font-bold text-orange-400 mt-[32px]'}>请缩放浏览器窗口大小，感受字体大小变化</div>
+
+      <A />
+      <B />
+      <C />
     </div>
   )
 }

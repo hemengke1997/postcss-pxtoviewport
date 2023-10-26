@@ -1,8 +1,8 @@
 import postcss, { type Input } from 'postcss'
-import { describe, expect, test } from 'vitest'
 import nested from 'postcss-nested'
-import { filterPropList } from '../src/utils/filter-prop-list'
+import { describe, expect, test } from 'vitest'
 import pxtoviewport from '../src'
+import { filterPropList } from '../src/utils/filter-prop-list'
 
 const basicCSS = '.rule { font-size: 15px }'
 const basicExpected = '.rule { font-size: 4vw }'
