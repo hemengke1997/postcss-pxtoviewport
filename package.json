@@ -33,6 +33,7 @@
   "scripts": {
     "dev": "simple-git-hooks && tsup --watch",
     "build": "tsup",
+    "build:pages": "pnpm run build && cd playground/spa && pnpm run build",
     "test": "run-s test:unit test:serve test:build",
     "test:unit": "vitest run",
     "test:serve": "vitest run -c vitest.config.e2e.ts",
