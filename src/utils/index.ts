@@ -210,7 +210,6 @@ export type H = {
   [currentOptions]: {
     isExcludeFile: boolean
     pxReplace: ReturnType<typeof createPxReplace> | undefined
-    viewportWidth: number | undefined
     originOpts: ReturnType<typeof initOptions>
   }
 }
@@ -225,31 +224,34 @@ export function setupCurrentOptions(
     comment?: ChildNode | Comment
   },
 ) {
-  const opts = h[currentOptions].originOpts
-
   const filePath = node?.source?.input.file
 
   if (isOptionComment(comment)) {
     h[currentOptions].originOpts = {
-      ...opts,
-      ...getOptionsFromComment(comment, opts.parseOptions),
+      ...h[currentOptions].originOpts,
+      ...getOptionsFromComment(comment, h[currentOptions].originOpts.parseOptions),
     }
   }
 
-  const exclude = opts.exclude
-  const include = opts.include
+  const { originOpts } = h[currentOptions]
+
+  const { exclude, include, viewportWidth, disable } = originOpts
 
   h[currentOptions].isExcludeFile = judgeIsExclude(exclude, include, filePath)
 
-  if (checkIfDisable({ disable: opts.disable, isExcludeFile: h[currentOptions].isExcludeFile })) {
+  if (checkIfDisable({ disable, isExcludeFile: h[currentOptions].isExcludeFile })) {
     return
   }
 
-  h[currentOptions].viewportWidth = isFunction(opts.viewportWidth)
-    ? opts.viewportWidth(node?.source!.input)
-    : opts.viewportWidth
+  h[currentOptions].originOpts.viewportWidth = isFunction(viewportWidth)
+    ? viewportWidth(node?.source!.input)
+    : viewportWidth
 
-  h[currentOptions].pxReplace = createPxReplace(h[currentOptions].viewportWidth, opts.unitPrecision, opts.minPixelValue)
+  h[currentOptions].pxReplace = createPxReplace(
+    h[currentOptions].originOpts.viewportWidth,
+    originOpts.unitPrecision,
+    originOpts.minPixelValue,
+  )
 }
 
 enum DataType {

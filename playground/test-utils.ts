@@ -8,6 +8,7 @@ async function toEl(el: string) {
 
 export async function getFontsize(el: string): Promise<string> {
   const element = await toEl(el)
+
   return await element.evaluate((e) => getComputedStyle(e).fontSize)
 }
 

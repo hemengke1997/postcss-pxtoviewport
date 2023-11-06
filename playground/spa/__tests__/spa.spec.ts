@@ -48,6 +48,31 @@ describe('pxtoviewport - width 375', () => {
     const fontSize = await getFontsize('#c_1')
     expect(fontSize.replace('px', '')).toBeCloseTo(Number.parseFloat(vw) / 2)
   })
+
+  test('should d_1 fontsize be vw', async ({ vw }) => {
+    const fontSize = await getFontsize('#d_1')
+    expect(fontSize).toBe(vw)
+  })
+
+  test('should d_2 fontsize be half vw', async ({ vw }) => {
+    const fontSize = await getFontsize('#d_2')
+    expect(fontSize.replace('px', '')).toBeCloseTo(Number.parseFloat(vw) / 2)
+  })
+
+  test('should d_3 fontsize be double vw', async ({ vw }) => {
+    const fontSize = await getFontsize('#d_3')
+    expect(fontSize).toBe(`${Number.parseFloat(vw) * 2}px`)
+  })
+
+  test('should d_4 fontsize be double vw', async ({ vw }) => {
+    const fontSize = await getFontsize('#d_4')
+    expect(fontSize).toBe(`${Number.parseFloat(vw) * 2}px`)
+  })
+
+  test('should e_1 fontsize be vw', async ({ vw }) => {
+    const fontSize = await getFontsize('#e_1')
+    expect(fontSize).toBe(vw)
+  })
 })
 
 describe('pxtoviewport - width 750', () => {

@@ -380,7 +380,7 @@ describe('include', () => {
   })
 })
 
-describe('top comment', () => {
+describe('comment', () => {
   test('regexp', () => {
     const css = '/* pxtoviewport?disable=false */\n.rule { font-size: 15px }'
     const expected = '.rule { font-size: 4vw }'
@@ -586,6 +586,79 @@ describe('top comment', () => {
     }
     .class2 .nested {
         font-size: 4.26667vw;
+      }`
+    const processed = postcss(pxtoviewport(), nested).process(css).css
+
+    expect(processed).toBe(expected)
+  })
+
+  test('integrate postcss-nested viewport', () => {
+    const css = `/* pxtoviewport?disable=false */
+    .class {
+      margin: -10px 20px;
+      border: 3px solid black;
+      font-size: 14px;
+      line-height: 20px;
+    }
+    .mmm {
+      /* pxtoviewport-disable-next-line */
+      font-size: 32px;
+      .nested {
+        font-size: 16px;
+      }
+    }
+    
+    /* pxtoviewport?disable=false&viewportWidth=750 */
+    @media (min-width: 750px) {
+      .class3 {
+        font-size: 16px;
+        line-height: 22px;
+        .nested {
+          font-size: 16px;
+        }
+      }
+    }
+    
+    /* pxtoviewport?disable=true */
+    .class2 {
+      margin: -10px 20px;
+      border: 3px solid black;
+      font-size: 14px;
+      line-height: 20px;
+      .nested {
+        font-size: 16px;
+      }
+    }`
+
+    const expected = `.class {
+      margin: -2.66667vw 5.33333vw;
+      border: 0.8vw solid black;
+      font-size: 3.73333vw;
+      line-height: 5.33333vw;
+    }
+    .mmm {
+      font-size: 32px;
+    }
+    .mmm .nested {
+        font-size: 4.26667vw;
+      }
+    @media (min-width: 750px) {
+      .class3 {
+        font-size: 2.13333vw;
+        line-height: 2.93333vw;
+      }
+        .class3 .nested {
+          font-size: 2.13333vw;
+        }
+    }
+    .class2 {
+      margin: -10px 20px;
+      border: 3px solid black;
+      font-size: 14px;
+      line-height: 20px;
+    }
+    .class2 .nested {
+        font-size: 16px;
       }`
     const processed = postcss(pxtoviewport(), nested).process(css).css
 

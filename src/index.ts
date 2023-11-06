@@ -72,7 +72,6 @@ function pxtoviewport(options?: PxtoviewportOptions) {
       h[currentOptions] = {
         isExcludeFile: false,
         pxReplace: undefined,
-        viewportWidth: undefined,
         originOpts: ORIGINAL_OPTIONS,
       }
 
