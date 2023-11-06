@@ -1,3 +1,12 @@
+## [1.3.1](https://github.com/hemengke1997/postcss-pxtoviewport/compare/v1.3.0...v1.3.1) (2023-11-06)
+
+
+### Bug Fixes
+
+* dynamic viewportWidth in css file not work ([041d5d1](https://github.com/hemengke1997/postcss-pxtoviewport/commit/041d5d1af36deae1f5ec8e83824bd5a8f1006b9b))
+
+
+
 # [1.3.0](https://github.com/hemengke1997/postcss-pxtoviewport/compare/v1.3.0-beta.1...v1.3.0) (2023-06-25)
 
 
