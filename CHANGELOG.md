@@ -1,3 +1,12 @@
+## [1.3.2](https://github.com/hemengke1997/postcss-pxtoviewport/compare/v1.3.1...v1.3.2) (2023-12-15)
+
+
+### Bug Fixes
+
+* remove pnpm restriction ([e7b79dc](https://github.com/hemengke1997/postcss-pxtoviewport/commit/e7b79dcef4e1f536a87d7829cdb33ca7f19844de))
+
+
+
 ## [1.3.1](https://github.com/hemengke1997/postcss-pxtoviewport/compare/v1.3.0...v1.3.1) (2023-11-06)
 
 
