@@ -17,8 +17,8 @@ import { getUnitRegexp } from './utils/pixel-unit-regex'
 import { type ParseOptions } from './utils/query-parse'
 
 export interface ConvertUnit {
-  sourceUnit: string | RegExp
-  targetUnit: string
+  source: string | RegExp
+  target: string
 }
 
 export type PxtoviewportOptions = Partial<{

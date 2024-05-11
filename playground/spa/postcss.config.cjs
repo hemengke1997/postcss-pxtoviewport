@@ -1,3 +1,5 @@
+/* eslint-disable node/no-path-concat */
+
 module.exports = {
   plugins: {
     'tailwindcss/nesting': {},
@@ -11,8 +13,8 @@ module.exports = {
       atRules: false,
       propList: ['*'],
       convertUnit: {
-        sourceUnit: /[Pp][Xx]$/,
-        targetUnit: 'px',
+        source: /px$/i,
+        target: 'px',
       },
     },
   },

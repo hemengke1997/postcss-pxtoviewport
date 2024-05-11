@@ -192,10 +192,10 @@ export function declarationExists(decls: Container<ChildNode>, prop: string, val
 }
 
 export function convertUnitFn(value: string, convert: ConvertUnit) {
-  if (typeof convert.sourceUnit === 'string') {
-    return value.replace(new RegExp(`${convert.sourceUnit}$`), convert.targetUnit)
-  } else if (isRegExp(convert.sourceUnit)) {
-    return value.replace(new RegExp(convert.sourceUnit), convert.targetUnit)
+  if (typeof convert.source === 'string') {
+    return value.replace(new RegExp(`${convert.source}$`), convert.target)
+  } else if (isRegExp(convert.source)) {
+    return value.replace(new RegExp(convert.source), convert.target)
   }
   return value
 }

@@ -110,8 +110,8 @@ export default {
   plugins: [
     pxtoviewport({
       convertUnit: {
-        sourceUnit: /[Pp][Xx]$/,
-        targetUnit: 'px',
+        source: /px$/i,
+        target: 'px',
       },
     }),
   ],

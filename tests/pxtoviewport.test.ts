@@ -716,8 +716,8 @@ describe('convertUnit', () => {
     const processed = postcss(
       pxtoviewport({
         convertUnit: {
-          sourceUnit: /[Pp|][Xx|]$/,
-          targetUnit: 'px',
+          source: /px$/i,
+          target: 'px',
         },
       }),
     ).process(css).css
@@ -731,8 +731,8 @@ describe('convertUnit', () => {
     const processed = postcss(
       pxtoviewport({
         convertUnit: {
-          sourceUnit: 'PX',
-          targetUnit: 'px',
+          source: 'PX',
+          target: 'px',
         },
       }),
     ).process(css).css
