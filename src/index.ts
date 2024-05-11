@@ -1,3 +1,4 @@
+import { cloneDeep, isArray, isBoolean } from '@minko-fe/lodash-pro'
 import { type Input, type Plugin as PostcssPlugin, type Rule } from 'postcss'
 import {
   blacklistedSelector,
@@ -8,8 +9,6 @@ import {
   declarationExists,
   getUnit,
   initOptions,
-  isArray,
-  isBoolean,
   isPxtoviewportReg,
   setupCurrentOptions,
 } from './utils'
@@ -61,7 +60,7 @@ export const defaultOptions: Required<PxtoviewportOptions> = {
 const postcssPlugin = 'postcss-pxtoviewport'
 
 function pxtoviewport(options?: PxtoviewportOptions) {
-  const ORIGINAL_OPTIONS = initOptions(options)
+  const RAW_OPTIONS = initOptions(options)
 
   const plugin: PostcssPlugin = {
     postcssPlugin,
@@ -72,7 +71,7 @@ function pxtoviewport(options?: PxtoviewportOptions) {
       h[currentOptions] = {
         isExcludeFile: false,
         pxReplace: undefined,
-        originOpts: ORIGINAL_OPTIONS,
+        originOpts: cloneDeep(RAW_OPTIONS), // avoid reference pollution
       }
 
       setupCurrentOptions(h as any, { node, comment: firstNode })

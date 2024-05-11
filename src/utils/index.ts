@@ -1,3 +1,4 @@
+import { isFunction, isRegExp, isString } from '@minko-fe/lodash-pro'
 import {
   type AtRule,
   type ChildNode,
@@ -252,48 +253,4 @@ export function setupCurrentOptions(
     originOpts.unitPrecision,
     originOpts.minPixelValue,
   )
-}
-
-enum DataType {
-  number = 'Number',
-  string = 'String',
-  boolean = 'Boolean',
-  null = 'Null',
-  undefined = 'Undefined',
-  object = 'Object',
-  array = 'Array',
-  date = 'Date',
-  regexp = 'RegExp',
-  function = 'Function',
-}
-
-function is(val: unknown, type: string) {
-  return Object.prototype.toString.call(val) === `[object ${type}]`
-}
-export function isNumber(data: unknown): data is number {
-  return is(data, DataType.number)
-}
-export function isString(data: unknown): data is string {
-  return is(data, DataType.string)
-}
-export function isBoolean(data: unknown): data is boolean {
-  return is(data, DataType.boolean)
-}
-export function isNull(data: unknown): data is null {
-  return is(data, DataType.null)
-}
-export function isUndefined(data: unknown): data is undefined {
-  return is(data, DataType.undefined)
-}
-export function isObject(data: unknown): data is Object {
-  return is(data, DataType.object)
-}
-export function isArray(data: unknown): data is Array<any> {
-  return is(data, DataType.array)
-}
-export function isRegExp(data: unknown): data is RegExp {
-  return is(data, DataType.regexp)
-}
-export function isFunction(data: unknown): data is Function {
-  return is(data, DataType.function)
 }
