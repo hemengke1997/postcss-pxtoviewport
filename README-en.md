@@ -59,7 +59,7 @@ export default {
 | include           | `string` \| `RegExp` \| `((filePath: string) => boolean)` \| `null` | null                                                   | The file path to convert px to viewport. Higher priority than `exclude`. Same rules as `exclude`                   |
 | exclude           | `string` \| `RegExp` \| `((filePath: string) => boolean) \| null`   | /node_modules/i                                        | The file path to ignore and leave as px. Refer to: [exclude](#exclude)                                             |
 | disable           | `boolean`                                                           | false                                                  | disable plugin                                                                                                     |
-| convertUnitOnEnd  | `ConvertUnit` \| `ConvertUnit[]` \| false \| null                   | null                                                   | convert unit when plugin process end                                                                               |
+| convertUnit       | `ConvertUnit` \| `ConvertUnit[]` \| false \| null                   | null                                                   | convert unit when plugin process end                                                                               |
 
 #### propList
 
@@ -109,7 +109,7 @@ import pxtoviewport from '@minko-fe/postcss-pxtoviewport'
 export default {
   plugins: [
     pxtoviewport({
-      convertUnitOnEnd: {
+      convertUnit: {
         sourceUnit: /[Pp][Xx]$/,
         targetUnit: 'px',
       },

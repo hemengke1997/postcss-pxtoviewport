@@ -709,13 +709,13 @@ describe('unitToConvert', () => {
   })
 })
 
-describe('convertUnitOnEnd', () => {
+describe('convertUnit', () => {
   test('should convert PX to px with RegExp', () => {
     const css = '.rule { font-size: 2PX }'
     const expected = '.rule { font-size: 2px }'
     const processed = postcss(
       pxtoviewport({
-        convertUnitOnEnd: {
+        convertUnit: {
           sourceUnit: /[Pp|][Xx|]$/,
           targetUnit: 'px',
         },
@@ -730,7 +730,7 @@ describe('convertUnitOnEnd', () => {
     const expected = '.rule { font-size: 2px }'
     const processed = postcss(
       pxtoviewport({
-        convertUnitOnEnd: {
+        convertUnit: {
           sourceUnit: 'PX',
           targetUnit: 'px',
         },

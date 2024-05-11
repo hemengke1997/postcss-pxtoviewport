@@ -58,7 +58,7 @@ export default {
 | include           | `string` \| `RegExp` \| `((filePath: string) => boolean)` \| `null` | null            | 包括的文件（与 exclude 相反）。优先级比 exclude 高。规则同 `exclude`                           |
 | exclude           | `string` \| `RegExp` \| `((filePath: string) => boolean)` \| `null` | /node_modules/i | 忽略的文件路径。参考：[exclude](#exclude)                                                      |
 | disable           | `boolean`                                                           | false           | 关闭插件                                                                                       |
-| convertUnitOnEnd  | `ConvertUnit` \| `ConvertUnit[]` \| false \| null                   | null            | 插件处理的最后阶段转换单位                                                                     |
+| convertUnit       | `ConvertUnit` \| `ConvertUnit[]` \| false \| null                   | null            | 插件处理的最后阶段转换单位                                                                     |
 
 #### propList
 
@@ -137,7 +137,7 @@ import pxtoviewport from '@minko-fe/postcss-pxtoviewport'
 export default {
   plugins: [
     pxtoviewport({
-      convertUnitOnEnd: {
+      convertUnit: {
         sourceUnit: /[Pp][Xx]$/,
         targetUnit: 'px',
       },

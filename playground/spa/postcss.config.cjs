@@ -10,7 +10,7 @@ module.exports = {
       minPixelValue: 1,
       atRules: false,
       propList: ['*'],
-      convertUnitOnEnd: {
+      convertUnit: {
         sourceUnit: /[Pp][Xx]$/,
         targetUnit: 'px',
       },

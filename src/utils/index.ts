@@ -191,7 +191,7 @@ export function declarationExists(decls: Container<ChildNode>, prop: string, val
   })
 }
 
-export function convertUnit(value: string, convert: ConvertUnit) {
+export function convertUnitFn(value: string, convert: ConvertUnit) {
   if (typeof convert.sourceUnit === 'string') {
     return value.replace(new RegExp(`${convert.sourceUnit}$`), convert.targetUnit)
   } else if (isRegExp(convert.sourceUnit)) {

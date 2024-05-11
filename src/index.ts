@@ -3,7 +3,7 @@ import { type Input, type Plugin as PostcssPlugin, type Rule } from 'postcss'
 import {
   blacklistedSelector,
   checkIfDisable,
-  convertUnit,
+  convertUnitFn,
   createPropListMatcher,
   currentOptions,
   declarationExists,
@@ -35,7 +35,7 @@ export type PxtoviewportOptions = Partial<{
   include: string | RegExp | ((filePath: string) => boolean) | null
   exclude: string | RegExp | ((filePath: string) => boolean) | null
   disable: boolean
-  convertUnitOnEnd: ConvertUnit | ConvertUnit[] | false | null
+  convertUnit: ConvertUnit | ConvertUnit[] | false | null
   parseOptions: ParseOptions
 }>
 
@@ -53,7 +53,7 @@ export const defaultOptions: Required<PxtoviewportOptions> = {
   include: null,
   exclude: /node_modules/i,
   disable: false,
-  convertUnitOnEnd: null,
+  convertUnit: null,
   parseOptions: {},
 }
 
@@ -121,14 +121,14 @@ function pxtoviewport(options?: PxtoviewportOptions) {
     },
     DeclarationExit(decl, h) {
       const opts = h[currentOptions].originOpts
-      const { convertUnitOnEnd } = opts
-      if (convertUnitOnEnd) {
-        if (Array.isArray(convertUnitOnEnd)) {
-          convertUnitOnEnd.forEach((conv) => {
-            decl.value = convertUnit(decl.value, conv)
+      const { convertUnit } = opts
+      if (convertUnit) {
+        if (Array.isArray(convertUnit)) {
+          convertUnit.forEach((conv) => {
+            decl.value = convertUnitFn(decl.value, conv)
           })
         } else {
-          decl.value = convertUnit(decl.value, convertUnitOnEnd)
+          decl.value = convertUnitFn(decl.value, convertUnit)
         }
       }
     },

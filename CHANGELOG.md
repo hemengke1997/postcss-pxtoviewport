@@ -1,3 +1,12 @@
+# [1.4.0](https://github.com/hemengke1997/postcss-pxtoviewport/compare/v1.3.2...v1.4.0) (2024-05-11)
+
+
+### Bug Fixes
+
+* avoid reference pollution in vite build ([d20a150](https://github.com/hemengke1997/postcss-pxtoviewport/commit/d20a1501aa231fa77caa29179b88f643d8e420e6))
+
+
+
 ## [1.3.2](https://github.com/hemengke1997/postcss-pxtoviewport/compare/v1.3.1...v1.3.2) (2023-12-15)
 
 
